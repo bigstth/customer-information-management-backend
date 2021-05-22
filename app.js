@@ -23,7 +23,7 @@ app.use(limiter);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const customersRouter = require('./routes/customers');
-const historiesRouter = require('./routes/users');
+const historiesRouter = require('./routes/histories');
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,

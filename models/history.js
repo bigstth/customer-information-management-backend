@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-
-const schema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const schema = new Schema(
   {
     action: { type: String, required: true, trim: true },
-    _user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
-    _customer: { type: mongoose.Schema.Types.ObjectId, ref: 'customer' },
+    _user: { type: Schema.Types.ObjectId, ref: 'User' },
+    _customer: { type: Schema.Types.ObjectId, ref: 'Customer' },
   },
   {
     timestamps: true,

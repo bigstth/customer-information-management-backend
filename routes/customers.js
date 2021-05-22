@@ -6,6 +6,7 @@ const checkAdmin = require('../middleware/checkAdmin');
 const {
   validateCustomer,
 } = require('../middleware/validator/customerValidator');
+
 router.get('/', [passportJWT.isLogin], customerController.index);
 router.get('/:id', [passportJWT.isLogin], customerController.show);
 router.post(

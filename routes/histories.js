@@ -1,10 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/historyController');
+const historyController = require('../controllers/historyController');
 const passportJWT = require('../middleware/passportJWT');
 const checkAdmin = require('../middleware/checkAdmin');
 
-/* GET home page. */
-router.get('/', [passportJWT.isLogin], historyController.index);
+router.get(
+  '/',
+  [passportJWT.isLogin],
+  checkAdmin.isAdmin,
+  historyController.index
+);
 
 module.exports = router;

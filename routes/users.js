@@ -4,7 +4,7 @@ const passportJWT = require('../middleware/passportJWT');
 const userController = require('../controllers/userController');
 const checkAdmin = require('../middleware/checkAdmin');
 const { validateUser } = require('../middleware/validator/userValidator');
-/* GET users listing. */
+
 router.get(
   '/',
   [passportJWT.isLogin],
