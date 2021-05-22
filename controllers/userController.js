@@ -4,14 +4,15 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/index');
 exports.index = async (req, res, next) => {
   const UserList = await User.find();
-  res.status(200).json({
-    //รอทำเป็น array
-    data: {
-      email: UserList.email,
-      role: UserList.role,
-      created_at: UserList.created_at,
-    },
+  console.log(UserList);
+  const data = UserList.map((user) => {
+    return {
+      email: user.email,
+      role: user.role,
+      created_at: user.created_at,
+    };
   });
+  res.status(200).json({ data });
 };
 
 exports.login = async (req, res, next) => {

@@ -3,8 +3,14 @@ const { body } = require('express-validator');
 const router = express.Router();
 const userController = require('../controllers/userController');
 const passportJWT = require('../middleware/passportJWT');
+const checkAdmin = require('../middleware/checkAdmin');
 /* GET users listing. */
-router.get('/', [passportJWT.isLogin], userController.index);
+router.get(
+  '/',
+  [passportJWT.isLogin],
+  checkAdmin.isAdmin,
+  userController.index
+);
 router.get('/me', [passportJWT.isLogin], userController.me);
 router.post(
   '/register',

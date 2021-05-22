@@ -6,9 +6,20 @@ const mongoose = require('mongoose');
 const errorHandler = require('./middleware/errorHandler');
 const config = require('./config/index');
 const passport = require('passport');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 const app = express();
+app.use(cors());
+app.use(helmet());
 app.use(passport.initialize());
 
+app.set('trust proxy', 1);
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+app.use(limiter);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
