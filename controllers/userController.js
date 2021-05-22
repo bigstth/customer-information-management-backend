@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/index');
 exports.index = async (req, res, next) => {
   const UserList = await User.find();
-  console.log(UserList);
   const data = UserList.map((user) => {
     return {
       email: user.email,

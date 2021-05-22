@@ -12,7 +12,6 @@ exports.index = async (req, res, next) => {
         select: 'first_name last_name -_id',
       })
       .exec();
-    console.log(histories);
     res.status(200).json({
       data: histories,
     });
