@@ -22,11 +22,14 @@ const limiter = rateLimit({
 app.use(limiter);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const customersRouter = require('./routes/customers');
+const historiesRouter = require('./routes/users');
 
 mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 });
 
 app.use(logger('dev'));
@@ -37,6 +40,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/customers', customersRouter);
+app.use('/histories', historiesRouter);
 
 app.use(errorHandler);
 module.exports = app;

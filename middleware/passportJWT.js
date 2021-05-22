@@ -13,7 +13,15 @@ passport.use(
       if (!user) {
         return done(new Error('User not found'), null);
       }
-      return done(null, user);
+      const { _id, first_name, last_name, email, role, created_at } = user;
+      return done(null, {
+        _id,
+        first_name,
+        last_name,
+        email,
+        role,
+        created_at,
+      });
     } catch (error) {
       done(error);
     }

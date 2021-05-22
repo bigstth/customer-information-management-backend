@@ -1,19 +1,23 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const schema = new mongoose.Schema({
-  first_name: { type: String, required: true, trim: true },
-  last_name: { type: String, required: true, trim: true },
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-    index: true,
+const schema = new mongoose.Schema(
+  {
+    first_name: { type: String, required: true, trim: true },
+    last_name: { type: String, required: true, trim: true },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      index: true,
+    },
+    password: { type: String, required: true, trim: true, minlength: 3 },
+    role: { type: String, required: true, trim: true, default: 'member' },
   },
-  password: { type: String, required: true, trim: true, minlength: 3 },
-  role: { type: String, required: true, trim: true, default: 'member' },
-  created_at: { type: String, default: Date.now, required: true, trim: true },
-});
+  {
+    timestamps: true,
+  }
+);
 
 schema.methods.encryptPassword = async function (password) {
   const salt = await bcrypt.genSalt(5);

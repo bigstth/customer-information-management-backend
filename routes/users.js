@@ -1,9 +1,9 @@
 const express = require('express');
-const { body } = require('express-validator');
 const router = express.Router();
-const userController = require('../controllers/userController');
 const passportJWT = require('../middleware/passportJWT');
+const userController = require('../controllers/userController');
 const checkAdmin = require('../middleware/checkAdmin');
+const { validateUser } = require('../middleware/validator/userValidator');
 /* GET users listing. */
 router.get(
   '/',
@@ -12,26 +12,7 @@ router.get(
   userController.index
 );
 router.get('/me', [passportJWT.isLogin], userController.me);
-router.post(
-  '/register',
-  [
-    body('first_name').not().isEmpty().withMessage('Please Input Firstname'),
-    body('last_name').not().isEmpty().withMessage('Please Input Lastname'),
-    body('email')
-      .not()
-      .isEmpty()
-      .withMessage('Please Input Email')
-      .isEmail()
-      .withMessage('Email is invalid format'),
-    body('password')
-      .not()
-      .isEmpty()
-      .withMessage('Please Input Password')
-      .isLength({ min: 3 })
-      .withMessage('Password can not less than 3 characters'),
-  ],
-  userController.register
-);
+router.post('/register', validateUser, userController.register);
 router.post('/login', userController.login);
 router.get('/logout', userController.logout);
 

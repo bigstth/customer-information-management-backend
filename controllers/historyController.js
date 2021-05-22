@@ -58,6 +58,7 @@ exports.logout = (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
+    const { first_name, last_name, email, password } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const error = new Error('Input data error');
@@ -71,7 +72,6 @@ exports.register = async (req, res, next) => {
       error.statusCode = 400;
       throw error;
     }
-    const { first_name, last_name, email, password } = req.body;
     let user = new User();
     user.first_name = first_name;
     user.last_name = last_name;
