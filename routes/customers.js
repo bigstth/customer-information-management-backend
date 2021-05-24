@@ -8,6 +8,7 @@ const {
 } = require('../middleware/validator/customerValidator');
 
 router.get('/', [passportJWT.isLogin], customerController.index);
+router.get('/admin', [passportJWT.isLogin], customerController.admin);
 router.get('/:id', [passportJWT.isLogin], customerController.show);
 router.post(
   '/submission',
@@ -33,4 +34,5 @@ router.post(
   validateCustomer,
   customerController.create
 );
+// router.post('/', validateCustomer, customerController.create);
 module.exports = router;

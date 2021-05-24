@@ -64,7 +64,7 @@ exports.register = async (req, res, next) => {
       error.validation = errors.array();
       throw error;
     }
-    const existEmail = await User.findOne({ email: email });
+    const existEmail = await User.findOne({ email: req.body.email });
     if (existEmail) {
       const error = new Error('Email has been used');
       error.statusCode = 400;

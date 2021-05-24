@@ -4,7 +4,16 @@ const History = require('../models/history');
 const { validationResult } = require('express-validator');
 
 exports.index = async (req, res, next) => {
-  const customer = await Customer.find().sort({ _id: 1 });
+  const customer = await Customer.find({ status: 'UnSubmit' }).sort({ _id: 1 });
+  res.status(200).json({
+    data: customer,
+  });
+};
+
+exports.admin = async (req, res, next) => {
+  const customer = await Customer.find({ status: { $ne: 'UnSubmit' } }).sort({
+    _id: 1,
+  });
   res.status(200).json({
     data: customer,
   });

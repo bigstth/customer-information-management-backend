@@ -12,8 +12,20 @@ exports.index = async (req, res, next) => {
         select: 'first_name last_name -_id',
       })
       .exec();
+    const data = histories.map((history) => {
+      console.log(history);
+      return {
+        id: history._id,
+        user: history._user.email,
+        customer: history._customer
+          ? `${history._customer.first_name} ${history._customer.last_name}`
+          : null,
+        action: history.action,
+        createdAt: history.createdAt,
+      };
+    });
     res.status(200).json({
-      data: histories,
+      data: data,
     });
     // if (!histories) {
     //   throw new Error('No Data');
