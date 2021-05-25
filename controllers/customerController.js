@@ -1,6 +1,7 @@
 const Customer = require('../models/customer');
 const User = require('../models/user');
 const History = require('../models/history');
+const { format } = require('date-fns');
 const { validationResult } = require('express-validator');
 
 exports.index = async (req, res, next) => {
@@ -23,7 +24,10 @@ exports.show = async (req, res, next) => {
   try {
     const customer = await Customer.findById(req.params.id);
     res.status(200).json({
-      data: customer,
+      data: {
+        customer,
+        date_of_birth: format(new Date(customer.date_of_birth), 'dd/MM/yyyy'),
+      },
     });
   } catch (error) {
     error = new Error('Customer not found');

@@ -11,9 +11,9 @@ exports.index = async (req, res, next) => {
         path: '_customer',
         select: 'first_name last_name -_id',
       })
+      .sort({ _id: -1 })
       .exec();
     const data = histories.map((history) => {
-      console.log(history);
       return {
         id: history._id,
         user: history._user.email,
